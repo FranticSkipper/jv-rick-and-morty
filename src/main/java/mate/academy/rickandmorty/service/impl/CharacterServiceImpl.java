@@ -27,7 +27,7 @@ public class CharacterServiceImpl implements CharacterService {
         }
 
         Random random = new Random();
-        long randomId = ids.get(random.nextInt(ids.size()) + 1);
+        long randomId = ids.get(random.nextInt(ids.size()));
 
         return characterRepository
                 .findById(randomId)
