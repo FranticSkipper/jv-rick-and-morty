@@ -16,14 +16,18 @@ public class CharacterServiceImpl implements CharacterService {
 
     @Override
     public Character getRandomCharacter() {
-        long characterCount = characterRepository.count();
+        List<Long> ids = characterRepository
+                .findAll()
+                .stream()
+                .map(Character::getId)
+                .toList();
 
-        if (characterCount == 0) {
+        if (ids.isEmpty()) {
             throw new EntityNotFoundException("A list of characters is empty");
         }
 
         Random random = new Random();
-        long randomId = random.nextLong(characterCount) + 1;
+        long randomId = ids.get(random.nextInt(ids.size()) + 1);
 
         return characterRepository
                 .findById(randomId)
